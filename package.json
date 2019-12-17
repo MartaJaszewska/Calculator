@@ -1,0 +1,24 @@
+{
+  "name": "calc",
+  "version": "1.0.0",
+  "description": "Intive first project",
+  "main": "index.js",
+  "scripts": {
+    "start": "live-server .",
+    "lint": "eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MartaJaszewska/Calculator.git"
+  },
+  "author": "Marta Jaszewska",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MartaJaszewska/Calculator/issues"
+  },
+  "homepage": "https://github.com/MartaJaszewska/Calculator#readme",
+  "devDependencies": {
+    "eslint": "^6.7.2",
+    "prettier": "^1.19.1"
+  }
+}
