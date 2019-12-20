@@ -9,10 +9,8 @@ const numbers = document.querySelectorAll('.btn-number'),
       clear = document.getElementById('btn-clear'),
       clearEntry = document.getElementById('btn-clearEntry'),
       decimal = document.getElementById('btn-decimal'),
-      input = document.getElementById('input'),
-
-      equal = document.getElementById('btn-equal');
-      
+      equal = document.getElementById('btn-equal'),
+      input = document.getElementById('input');
 
 clearEntry.onclick = () => {
   input.value = input.value.slice(0, -1);
@@ -40,7 +38,7 @@ equal.onclick = () => {
   } else {
     input.value = calculate(equalAgain, parseFloat(input.value), number2);
   }
-}
+};
 
 for (let i = 0; i < numbers.length; i++) {
   numbers[i].onclick = () => {
@@ -56,7 +54,7 @@ for (let i = 0; i < numbers.length; i++) {
       isOperatorClicked = false;
     }
   };
-};
+}
 
 for (let i = 0; i < operators.length; i++) {
   operators[i].onclick = () => {
@@ -72,7 +70,7 @@ for (let i = 0; i < operators.length; i++) {
       isOperatorClicked = true;
     }
   };
-};
+}
 
 const calculate = (operator, number1, number2) => {
   let result = 0;
@@ -94,4 +92,4 @@ const calculate = (operator, number1, number2) => {
       }
   }
   return result;
-}
+};
