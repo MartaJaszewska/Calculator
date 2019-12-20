@@ -1,58 +1,97 @@
-let number1 = 0, number2=0, operator = '';
+let number1 = 0,
+    number2 = 0,
+    operator = '',
+    isOperatorClicked = false,
+    equalAgain = '';
 
 const numbers = document.querySelectorAll('.btn-number'),
       operators = document.querySelectorAll('.btn-operator'),
-      clear = document.getElementById('btn-clear')
+      clear = document.getElementById('btn-clear'),
       clearEntry = document.getElementById('btn-clearEntry'),
-      decimal = document.getElementById('btn-decimal');
+      decimal = document.getElementById('btn-decimal'),
+      input = document.getElementById('input'),
+
+      equal = document.getElementById('btn-equal');
+      
 
 clearEntry.onclick = () => {
-  let input = document.getElementById('input');
   input.value = input.value.slice(0, -1);
 };
 
 clear.onclick = () => {
-  document.getElementById('input').value = '';
+  input.value = '0';
+  number1 = 0;
+  number2 = 0;
+  operator = '';
+  isOperatorClicked = false;
 };
 
 decimal.onclick = () => {
-  const input = document.getElementById('input');
-  if (input.value.indexOf('.') === -1) {
-    input.value += '.'
-  };
+  if (input.value.indexOf('.') === -1) input.value += '.';
 };
 
-for (let i=0; i<numbers.length; i++) {
+equal.onclick = () => {
+  if (operator) {
+    number2 = parseFloat(input.value);
+    input.value = calculate(operator, number1, number2);
+    equalAgain = operator;
+    operator = '';
+    isOperatorClicked = false;
+  } else {
+    input.value = calculate(equalAgain, parseFloat(input.value), number2);
+  }
+}
+
+for (let i = 0; i < numbers.length; i++) {
   numbers[i].onclick = () => {
-    const input = document.getElementById('input');
-    input.value += numbers[i].innerText;
+    if (isOperatorClicked) {
+      number1 = parseFloat(input.value);
+      input.value = '';
+    }
+    if (input.value === '0') {
+      input.value = numbers[i].innerText;
+      isOperatorClicked = false;
+    } else {
+      input.value += numbers[i].innerText;
+      isOperatorClicked = false;
+    }
   };
 };
 
-for (let i=0; i<operators.length; i++) {
+for (let i = 0; i < operators.length; i++) {
   operators[i].onclick = () => {
-    console.log('operator '+ operators[i].innerText)
+    if (!operator) {
+      number1 = parseFloat(input.value);
+      operator = operators[i].innerText;
+      isOperatorClicked = true;
+    } else {
+      number2 = parseFloat(input.value);
+      input.value = calculate(operator, number1, number2);
+      operator = operators[i].innerText;
+      number2 = parseFloat(input.value);
+      isOperatorClicked = true;
+    }
   };
 };
 
 const calculate = (operator, number1, number2) => {
   let result = 0;
 
-  switch(operator) {
+  switch (operator) {
     case '+':
       result = number1 + number2;
       break;
     case '-':
       result = number1 - number2;
       break;
-    case '×': //check - html
-      result = number1/number2;
+    case '×':
+      result = number1 * number2;
       break;
-    case '÷': //check - html
+    case '÷':
       if (number2 != 0) {
-      result = number1*number2;
-      break;
-    }
+        result = number1 / number2;
+        break;
+      }
   }
   return result;
 }
