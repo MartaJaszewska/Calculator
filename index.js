@@ -13,7 +13,7 @@ const numbers = document.querySelectorAll('.btn-number'),
       input = document.getElementById('input');
 
 clearEntry.onclick = () => {
-  input.value = input.value.slice(0, -1);
+  if (input.value !== 'error') input.value = input.value.slice(0, -1);
 };
 
 clear.onclick = () => {
@@ -25,16 +25,20 @@ clear.onclick = () => {
 };
 
 decimal.onclick = () => {
-  if (input.value.indexOf('.') === -1) input.value += '.';
+  if (input.value.indexOf('.') === -1 && input.value !== 'error') input.value += '.';
 };
 
 equal.onclick = () => {
+  if (input.value === 'error') return;
   if (operator) {
     number2 = parseFloat(input.value);
-    input.value = calculate(operator, number1, number2);
-    equalAgain = operator;
-    operator = '';
-    isOperatorClicked = false;
+    if (divisionError(operator, number2)) return;
+    else {
+      input.value = calculate(operator, number1, number2);
+      equalAgain = operator;
+      operator = '';
+      isOperatorClicked = false;
+    }
   } else {
     input.value = calculate(equalAgain, parseFloat(input.value), number2);
   }
@@ -42,6 +46,8 @@ equal.onclick = () => {
 
 for (let i = 0; i < numbers.length; i++) {
   numbers[i].onclick = () => {
+    if (input.value === 'error') return;
+
     if (isOperatorClicked) {
       number1 = parseFloat(input.value);
       input.value = '';
@@ -58,16 +64,20 @@ for (let i = 0; i < numbers.length; i++) {
 
 for (let i = 0; i < operators.length; i++) {
   operators[i].onclick = () => {
+    if (input.value === 'error') return;
     if (!operator) {
       number1 = parseFloat(input.value);
       operator = operators[i].innerText;
       isOperatorClicked = true;
     } else {
       number2 = parseFloat(input.value);
-      input.value = calculate(operator, number1, number2);
-      operator = operators[i].innerText;
-      number2 = parseFloat(input.value);
-      isOperatorClicked = true;
+      if (divisionError(operator, number2)) return;
+      else {
+        input.value = calculate(operator, number1, number2);
+        operator = operators[i].innerText;
+        number2 = parseFloat(input.value);
+        isOperatorClicked = true;
+      }
     }
   };
 }
@@ -86,10 +96,16 @@ const calculate = (operator, number1, number2) => {
       result = number1 * number2;
       break;
     case '÷':
-      if (number2 != 0) {
-        result = number1 / number2;
-        break;
-      }
+      result = number1 / number2;
+      break;
   }
   return result;
+};
+
+const divisionError = (operator, number) => {
+  if (operator === '÷' && number === 0) {
+    input.value = 'error';
+    console.error('Division by 0 is undefined.');
+    return true;
+  }
 };
