@@ -1,15 +1,15 @@
 let number1 = 0,
     number2 = 0,
     operator = '',
-    isOperatorClicked = false,
-    equalAgain = '';
+    isOperatorClicked = false, //true when in expression some operator was clicked at least once
+    equalAgain = ''; //when '=' is click again, used to repeat previous operation
 
-const numbers = document.querySelectorAll('.btn-number'),
-      operators = document.querySelectorAll('.btn-operator'),
-      clear = document.getElementById('btn-clear'),
-      clearEntry = document.getElementById('btn-clearEntry'),
-      decimal = document.getElementById('btn-decimal'),
-      equal = document.getElementById('btn-equal'),
+const numbers = document.querySelectorAll('.btn-number'), // 1-9 buttons
+      operators = document.querySelectorAll('.btn-operator'), // '+','-', '×', '÷' buttons
+      clear = document.getElementById('btn-clear'), // 'C' button
+      clearEntry = document.getElementById('btn-clearEntry'), // 'CE' button
+      decimal = document.getElementById('btn-decimal'), // '.' button
+      equal = document.getElementById('btn-equal'), // '=' button
       input = document.getElementById('input');
 
 clearEntry.onclick = () => {
@@ -22,6 +22,7 @@ clear.onclick = () => {
   number2 = 0;
   operator = '';
   isOperatorClicked = false;
+  font();
 };
 
 decimal.onclick = () => {
@@ -29,6 +30,7 @@ decimal.onclick = () => {
 };
 
 equal.onclick = () => {
+  font();
   if (input.value === 'error') return;
   if (operator) {
     number2 = parseFloat(input.value);
@@ -46,6 +48,7 @@ equal.onclick = () => {
 
 for (let i = 0; i < numbers.length; i++) {
   numbers[i].onclick = () => {
+    font();
     if (input.value === 'error') return;
 
     if (isOperatorClicked) {
@@ -58,18 +61,20 @@ for (let i = 0; i < numbers.length; i++) {
     } else {
       input.value += numbers[i].innerText;
       isOperatorClicked = false;
-    }
+    } 
   };
 }
 
 for (let i = 0; i < operators.length; i++) {
   operators[i].onclick = () => {
+    font();
     if (input.value === 'error') return;
     if (!operator) {
       number1 = parseFloat(input.value);
       operator = operators[i].innerText;
       isOperatorClicked = true;
     } else {
+      if (number2 == input.value) return; //prevent change of input.value by multiply click same operator
       number2 = parseFloat(input.value);
       if (divisionError(operator, number2)) return;
       else {
@@ -109,3 +114,14 @@ const divisionError = (operator, number) => {
     return true;
   }
 };
+
+const font = () => {
+  if (input.value.length < 6) input.style.fontSize = '60px';
+  else if (input.value.length < 8) input.style.fontSize = '50px';
+  else if (input.value.length < 10) input.style.fontSize = '40px';
+  else if (input.value.length < 12) input.style.fontSize = '30px';
+  else if (input.value.length < 14) input.style.fontSize = '20px';
+  else if (input.value.length > 20) {
+    console.error('Maximum expression length reached.')
+    return input.value = 'error'}
+}
