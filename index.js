@@ -8,6 +8,7 @@ const numbers = document.querySelectorAll('.btn-number'), // 1-9 buttons
       operators = document.querySelectorAll('.btn-operator'), // '+','-', '×', '÷' buttons
       clear = document.getElementById('btn-clear'), // 'C' button
       clearEntry = document.getElementById('btn-clearEntry'), // 'CE' button
+      opposite = document.getElementById('btn-opposite'), // '+/-' button
       decimal = document.getElementById('btn-decimal'), // '.' button
       equal = document.getElementById('btn-equal'), // '=' button
       input = document.getElementById('input');
@@ -25,6 +26,11 @@ clear.onclick = () => {
   font();
 };
 
+opposite.onclick = () => {
+  if (input.value === 'error') return;
+  input.value = -input.value;
+}
+
 decimal.onclick = () => {
   if (input.value.indexOf('.') === -1 && input.value !== 'error') input.value += '.';
 };
@@ -34,7 +40,7 @@ equal.onclick = () => {
   if (input.value === 'error') return;
   if (operator) {
     number2 = parseFloat(input.value);
-    if (divisionError(operator, number2)) return;
+    if (divisionError()) return;
     else {
       input.value = calculate(operator, number1, number2);
       equalAgain = operator;
@@ -61,7 +67,7 @@ for (let i = 0; i < numbers.length; i++) {
     } else {
       input.value += numbers[i].innerText;
       isOperatorClicked = false;
-    } 
+    }
   };
 }
 
@@ -74,9 +80,8 @@ for (let i = 0; i < operators.length; i++) {
       operator = operators[i].innerText;
       isOperatorClicked = true;
     } else {
-      if (number2 == input.value) return; //prevent change of input.value by multiply click same operator
       number2 = parseFloat(input.value);
-      if (divisionError(operator, number2)) return;
+      if (divisionError()) return;
       else {
         input.value = calculate(operator, number1, number2);
         operator = operators[i].innerText;
@@ -107,8 +112,8 @@ const calculate = (operator, number1, number2) => {
   return result;
 };
 
-const divisionError = (operator, number) => {
-  if (operator === '÷' && number === 0) {
+const divisionError = () => {
+  if (operator === '÷' && number2 === 0) {
     input.value = 'error';
     console.error('Division by 0 is undefined.');
     return true;
