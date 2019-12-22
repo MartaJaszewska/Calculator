@@ -70,7 +70,7 @@ const font = (input) => { // changes the font size depending on the length of th
   else if (input.value.length < 13) input.style.fontSize = '30px';
   else if (input.value.length < 15) input.style.fontSize = '25px';
   else if (input.value.length < 18) input.style.fontSize = '20px';
-  else if (input.value.length < 21) input.style.fontSize = '15px';
+  else input.style.fontSize = '15px';
 };
 
 const round = (input) => { // rounds the result to the set number of decimal places
