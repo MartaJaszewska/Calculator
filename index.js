@@ -1,10 +1,10 @@
 let number1 = 0,
     number2 = 0,
-    operator = '',
+    operator = '', // when some operator is clicked this variable is used to store the sign of operation
     isOperatorClicked = false, // returns true when an operator was clicked at least once in the expression
     isEqualsClicked = false, // returns true when an equals was clicked at least once in the expression
-    isNumClicked = false, //when the '=' is clicked again this variable is used to repeat the previous operation
-    equalsAgain = ''; //when the '=' is clicked again this variable is used to repeat the previous operation
+    isNumClicked = false, // returns true when some number was clicked at least once in the expression
+    equalsAgain = ''; // when the '=' is clicked again this variable is used to repeat the previous operation
 
 const numbers = document.querySelectorAll('.btn-number'), // 1-9 buttons
       operators = document.querySelectorAll('.btn-operator'), // '+','-', '×', '÷' buttons
@@ -15,6 +15,7 @@ const numbers = document.querySelectorAll('.btn-number'), // 1-9 buttons
       equals = document.getElementById('btn-equals'), // '=' button
       input = document.getElementById('input');
 
+// event handlers
 const onClearEntry = () => {
   if (input.value !== 'error' && !isEqualsClicked && !isOperatorClicked) {
     input.value = input.value.slice(0, -1);
@@ -41,7 +42,6 @@ const onOpposite = () => {
 const onDecimal = () => {
   if (input.value.indexOf('.') === -1 && input.value !== 'error' && !isEqualsClicked) {
     input.value += '.';
-    font(input);
 }};
 
 const onEquals = () => {
@@ -62,23 +62,24 @@ const onEquals = () => {
     font(input);
 }};
 
+// helper functions
 const font = (input) => { // changes the font size depending on the length of the expression
-  round(input);
   if (input.value.length < 7) input.style.fontSize = '60px';
   else if (input.value.length < 9) input.style.fontSize = '50px';
   else if (input.value.length < 11) input.style.fontSize = '40px';
   else if (input.value.length < 13) input.style.fontSize = '30px';
   else if (input.value.length < 15) input.style.fontSize = '25px';
-  else if (input.value.length < 17) input.style.fontSize = '20px';
-  else if (input.value.length < 19) input.style.fontSize = '15px';
-  else if (input.value.length >= 19) {
-    input.value = 'error';
-    console.error('Maximum expression length has been reached.')
-}};
+  else if (input.value.length < 18) input.style.fontSize = '20px';
+  else if (input.value.length < 21) input.style.fontSize = '15px';
+};
 
 const round = (input) => { // rounds the result to the set number of decimal places
-  if (input.value.includes('.')) input.value = parseFloat(input.value).toFixed(2);
-};
+  if (input.value.indexOf('.') !== -1) {
+    const dotIndex = input.value.indexOf('.');
+    const int = input.value.slice(0, dotIndex);
+    const fix = 16 - int.length;
+    input.value = parseFloat(parseFloat(input.value).toFixed(fix));
+}};
 
 const calculate = (operator, number1, number2) => { // math operations
   let result = 0;
@@ -106,6 +107,7 @@ const divisionError = (operator, number2, input) => { // insurance division by z
     return true;
 }};
 
+// event listeners
 clearEntry.addEventListener('click', onClearEntry);
 clear.addEventListener('click', onClear);
 opposite.addEventListener('click', onOpposite);
@@ -144,6 +146,7 @@ Array.from(operators).map((operation) => {
       number2 = parseFloat(input.value);
       if (divisionError(operator, number2, input)) return;
       input.value = calculate(operator, number1, number2);
+      round(input);
       font(input);
       operator = operation.innerText;
       number2 = parseFloat(input.value);
