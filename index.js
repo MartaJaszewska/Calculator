@@ -3,6 +3,7 @@ let number1 = 0,
     operator = '',
     isOperatorClicked = false, // returns true when an operator was clicked at least once in the expression
     isEqualsClicked = false, // returns true when an equals was clicked at least once in the expression
+    isNumClicked = false, //when the '=' is clicked again this variable is used to repeat the previous operation
     equalsAgain = ''; //when the '=' is clicked again this variable is used to repeat the previous operation
 
 const numbers = document.querySelectorAll('.btn-number'), // 1-9 buttons
@@ -28,6 +29,7 @@ const onClear = () => {
   operator = '';
   isOperatorClicked = false;
   isEqualsClicked = false;
+  isNumClicked = false;
 };
 
 const onOpposite = () => {
@@ -61,15 +63,16 @@ const onEquals = () => {
 }};
 
 const font = (input) => { // changes the font size depending on the length of the expression
+  round(input);
   if (input.value.length < 7) input.style.fontSize = '60px';
   else if (input.value.length < 9) input.style.fontSize = '50px';
   else if (input.value.length < 11) input.style.fontSize = '40px';
   else if (input.value.length < 13) input.style.fontSize = '30px';
   else if (input.value.length < 15) input.style.fontSize = '25px';
   else if (input.value.length < 17) input.style.fontSize = '20px';
-  else if (input.value.length > 20) {
+  else if (input.value.length < 19) input.style.fontSize = '15px';
+  else if (input.value.length >= 19) {
     input.value = 'error';
-    font(input);
     console.error('Maximum expression length has been reached.')
 }};
 
@@ -115,16 +118,19 @@ Array.from(numbers).map((num) => {
     if (isOperatorClicked) {
       number1 = parseFloat(input.value);
       input.value = '';
+      isNumClicked = true
     }
     if (input.value === '0') {
       input.value = num.innerText;
       isOperatorClicked = false;
       isEqualsClicked = false;
-    } else if (isEqualsClicked === false || isOperatorClicked === true) {
+      isNumClicked = true
+    } else if (!isEqualsClicked || isOperatorClicked) {
       input.value += num.innerText;
       font(input);
       isOperatorClicked = false;
       isEqualsClicked = false;
+      isNumClicked = true
 }})});
 
 Array.from(operators).map((operation) => {
@@ -134,13 +140,14 @@ Array.from(operators).map((operation) => {
       number1 = parseFloat(input.value);
       operator = operation.innerText;
       isOperatorClicked = true;
-    } else {
+    } else if (isNumClicked) {
       number2 = parseFloat(input.value);
       if (divisionError(operator, number2, input)) return;
-      else {
-        input.value = calculate(operator, number1, number2);
-        font(input);
-        operator = operation.innerText;
-        number2 = parseFloat(input.value);
-        isOperatorClicked = true;
-}}})});
+      input.value = calculate(operator, number1, number2);
+      font(input);
+      operator = operation.innerText;
+      number2 = parseFloat(input.value);
+      isOperatorClicked = true;
+      isNumClicked = false
+    } else {operator = operation.innerText;
+}})});
