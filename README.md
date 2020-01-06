@@ -12,6 +12,8 @@ Intive first project
 - Subtraction (-)
 - Multiplication (*)
 - Division (/)
+- Exponentiation
+- Roots
 
 ## Additional features:
 - operations on numbers with commas

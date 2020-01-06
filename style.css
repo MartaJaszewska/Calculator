@@ -3,23 +3,37 @@ html {
 }
 
 .container {
-  max-width: 260px;
+  max-width: 310px;
   margin: 50px auto;
   background-color: rgba(0, 0, 0, 0.9);
 } 
 
-#input {
+.p-2 {
+  padding: 0 5px !important;
+}
+
+.p-2.expression {
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+}
+
+#expression {
   text-align: end;
-  font-size: 60px;
   color: rgb(228, 228, 228);
-  height: 90px;
+  height: 20px;
+}
+
+#result {
+  text-align: end;
+  color: rgb(228, 228, 228);
+  height: 50px;
   text-overflow: ellipsis;
 }
 
 .buttons {
   display: grid;
-  grid-gap: 5px;
-  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 7px;
+  grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
   padding: 15px 0;
 }
@@ -33,5 +47,10 @@ html {
 
 .btn-0 {
   grid-column: 1 / 3;
-  width: 110px;
+  width: 100%;
+}
+
+#btn-equals {
+  grid-column: 4 / 6;
+  width: 100%
 }

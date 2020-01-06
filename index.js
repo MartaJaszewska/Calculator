@@ -13,18 +13,19 @@ const numbers = document.querySelectorAll('.btn-number'), // 1-9 buttons
       opposite = document.getElementById('btn-opposite'), // '+/-' button
       decimal = document.getElementById('btn-decimal'), // '.' button
       equals = document.getElementById('btn-equals'), // '=' button
-      input = document.getElementById('input');
+      expression = document.getElementById('expression'),
+      result = document.getElementById('result');
 
 // event handlers
 const onClearEntry = () => {
-  if (input.value !== 'error' && !isEqualsClicked && !isOperatorClicked) {
-    input.value = input.value.slice(0, -1);
-    font(input);
+  if (result.value !== 'error' && !isEqualsClicked && !isOperatorClicked) {
+    result.value = result.value.slice(0, -1);
+    font(result);
 }};
 
 const onClear = () => {
-  input.value = '0';
-  font(input);
+  result.value = '0';
+  font(result);
   number1 = 0;
   number2 = 0;
   operator = '';
@@ -34,42 +35,46 @@ const onClear = () => {
 };
 
 const onOpposite = () => {
-  if (input.value === 'error') return;
-  input.value = -1 * input.value;
-  font(input);
+  if (result.value === 'error') return;
+  result.value = -1 * result.value;
+  font(result);
 };
 
 const onDecimal = () => {
-  if (input.value.indexOf('.') === -1 && input.value !== 'error' && !isEqualsClicked) {
-    input.value += '.';
+  if (result.value.indexOf('.') === -1 && result.value !== 'error' && !isEqualsClicked) {
+    result.value += '.';
 }};
 
 const onEquals = () => {
-  if (input.value === 'error') return;
+  if (result.value === 'error') return;
   if (operator && !isEqualsClicked) {
-    number2 = parseFloat(input.value);
-    if (divisionError(operator, number2, input)) return;
-    input.value = calculate(operator, number1, number2);
-    round(input);
-    font(input);
+    number2 = parseFloat(result.value);
+    if (divisionError(operator, number2, result)) return;
+    result.value = calculate(operator, number1, number2);
+    round(result);
+    font(result);
     equalsAgain = operator;
     operator = '';
     isOperatorClicked = false;
     isEqualsClicked = true;
   } else if (!operator && isEqualsClicked) {
-    input.value = calculate(equalsAgain, parseFloat(input.value), number2);
-    round(input);
-    font(input);
+    result.value = calculate(equalsAgain, parseFloat(result.value), number2);
+    round(result);
+    font(result);
 }};
+
+// const onPower = () => {
+
+// }
 
 // helper functions
 const font = (input) => { // changes the font size depending on the length of the expression
-  if (input.value.length < 7) input.style.fontSize = '60px';
-  else if (input.value.length < 9) input.style.fontSize = '50px';
-  else if (input.value.length < 11) input.style.fontSize = '40px';
-  else if (input.value.length < 13) input.style.fontSize = '30px';
-  else if (input.value.length < 15) input.style.fontSize = '25px';
-  else if (input.value.length < 18) input.style.fontSize = '20px';
+  if (input.value.length < 9) input.style.fontSize = '50px';
+  else if (input.value.length < 12) input.style.fontSize = '40px';
+  else if (input.value.length < 14) input.style.fontSize = '35px';
+  else if (input.value.length < 16) input.style.fontSize = '30px';
+  else if (input.value.length < 18) input.style.fontSize = '25px';
+  else if (input.value.length < 22) input.style.fontSize = '20px';
   else input.style.fontSize = '15px';
 };
 
@@ -96,6 +101,12 @@ const calculate = (operator, number1, number2) => { // math operations
     case '÷':
       result = number1 / number2;
       break;
+    case '√':
+      result = Math.pow(number1, 1/number2)
+      break;
+    case 'xy':
+      result = Math.pow(number1, number2)
+      break;
   }
   return result;
 };
@@ -116,20 +127,20 @@ equals.addEventListener('click', onEquals);
 
 Array.from(numbers).map((num) => {
   num.addEventListener('click', () => {
-    if (input.value === 'error') return;
+    if (result.value === 'error') return;
     if (isOperatorClicked) {
-      number1 = parseFloat(input.value);
-      input.value = '';
+      number1 = parseFloat(result.value);
+      result.value = '';
       isNumClicked = true
     }
-    if (input.value === '0') {
-      input.value = num.innerText;
+    if (result.value === '0') {
+      result.value = num.innerText;
       isOperatorClicked = false;
       isEqualsClicked = false;
       isNumClicked = true
     } else if (!isEqualsClicked || isOperatorClicked) {
-      input.value += num.innerText;
-      font(input);
+      result.value += num.innerText;
+      font(result);
       isOperatorClicked = false;
       isEqualsClicked = false;
       isNumClicked = true
@@ -137,19 +148,19 @@ Array.from(numbers).map((num) => {
 
 Array.from(operators).map((operation) => {
   operation.addEventListener('click', () => {
-    if (input.value === 'error') return;
+    if (result.value === 'error') return;
     if (!operator) {
-      number1 = parseFloat(input.value);
+      number1 = parseFloat(result.value);
       operator = operation.innerText;
       isOperatorClicked = true;
     } else if (isNumClicked) {
-      number2 = parseFloat(input.value);
-      if (divisionError(operator, number2, input)) return;
-      input.value = calculate(operator, number1, number2);
-      round(input);
-      font(input);
+      number2 = parseFloat(result.value);
+      if (divisionError(operator, number2, result)) return;
+      result.value = calculate(operator, number1, number2);
+      round(result);
+      font(result);
       operator = operation.innerText;
-      number2 = parseFloat(input.value);
+      number2 = parseFloat(result.value);
       isOperatorClicked = true;
       isNumClicked = false
     } else {operator = operation.innerText;
