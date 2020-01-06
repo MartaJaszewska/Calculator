@@ -4,8 +4,7 @@
   "description": "Intive first project",
   "main": "index.js",
   "scripts": {
-    "start": "live-server .",
-    "lint": "eslint"
+    "start": "live-server ."
   },
   "repository": {
     "type": "git",
@@ -18,7 +17,6 @@
   },
   "homepage": "https://github.com/MartaJaszewska/Calculator#readme",
   "devDependencies": {
-    "eslint": "^6.7.2",
-    "prettier": "^1.19.1"
+    "live-server": "^1.2.1"
   }
 }

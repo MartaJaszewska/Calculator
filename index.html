@@ -8,42 +8,40 @@
   <title>Simple calculator</title>
   <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
-  <script type="text/javascript" src="/javascript/index.js"></script>
 </head>
 
 <body>
   <div class="container">
     <div class="input-group">
-      <input type="text" class="form-control input" id="input" value="0">
+      <input type="text" class="form-control" id="input" value="0">
     </div>
     <div class="buttons">
-      <button type="button" class="btn btn-secondary" onclick="clearInput()">C</button>
-      <button type="button" class="btn btn-secondary">CE</button>
-      <button type="button" class="btn btn-secondary">+/-</button>
-      <button type="button" class="operator btn btn-raised btn-warning" onclick="getData('/')">&divide;</button>
-      <button type="button" class="btn btn-raised btn-secondary" onclick="getData('7')">7</button>
-      <button type="button" class="btn btn-raised btn-secondary" onclick="getData('8')">8</button>
-      <button type="button" class="btn btn-raised btn-secondary" onclick="getData('9')">9</button>
-      <button type="button" class="operator btn btn-raised btn-warning" onclick="getData('*')">&times;</button>
-      <button type="button" class="btn btn-raised btn-secondary" onclick="getData('4')">4</button>
-      <button type="button" class="btn btn-raised btn-secondary" onclick="getData('5')">5</button>
-      <button type="button" class="btn btn-raised btn-secondary" onclick="getData('6')">6</button>
-      <button type="button" class="operator btn btn-raised btn-warning" onclick="getData('-')">-</button>
-      <button type="button" class="btn btn-raised btn-secondary" onclick="getData('1')">1</button>
-      <button type="button" class="btn btn-raised btn-secondary" onclick="getData('2')">2</button>
-      <button type="button" class="btn btn-raised btn-secondary" onclick="getData('3')">3</button>
-      <button type="button" class="operator btn btn-raised btn-warning" onclick="getData('+')">+</button>
-      <button type="button" class="btn btn-raised btn-secondary btn0" onclick="getData('0')">0</button>
-      <button type="button" class="decimal btn btn-raised btn-secondary" onclick="getData('.')">.</button>
-      <button type="button" class="equal-sign operator btn btn-raised btn-warning" onclick="getData('=')">=</button>
+      <button type="button" class="btn btn-secondary" id="btn-clear">C</button>
+      <button type="button" class="btn btn-secondary" id="btn-clearEntry">CE</button>
+      <button type="button" class="btn btn-secondary" id="btn-opposite">+/-</button>
+      <button type="button" class="btn btn-raised btn-warning btn-operator">&divide;</button>
+      <button type="button" class="btn btn-raised btn-secondary btn-number">7</button>
+      <button type="button" class="btn btn-raised btn-secondary btn-number">8</button>
+      <button type="button" class="btn btn-raised btn-secondary btn-number">9</button>
+      <button type="button" class="btn btn-raised btn-warning btn-operator">&times;</button>
+      <button type="button" class="btn btn-raised btn-secondary btn-number">4</button>
+      <button type="button" class="btn btn-raised btn-secondary btn-number">5</button>
+      <button type="button" class="btn btn-raised btn-secondary btn-number">6</button>
+      <button type="button" class="btn btn-raised btn-warning btn-operator">-</button>
+      <button type="button" class="btn btn-raised btn-secondary btn-number">1</button>
+      <button type="button" class="btn btn-raised btn-secondary btn-number">2</button>
+      <button type="button" class="btn btn-raised btn-secondary btn-number">3</button>
+      <button type="button" class="btn btn-raised btn-warning btn-operator">+</button>
+      <button type="button" class="btn btn-raised btn-secondary btn-number btn-0">0</button>
+      <button type="button" class="btn btn-raised btn-secondary" id="btn-decimal">.</button>
+      <button type="button" class="btn btn-raised btn-warning" id="btn-equals">=</button>
     </div>
   </div>
-
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
   <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
-
+  <script type="text/javascript" src="index.js"></script>
 </body>
 
 </html>
