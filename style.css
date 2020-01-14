@@ -67,6 +67,10 @@ body {
   width: 100%;
 }
 
+#btn-exchange {
+  font-size: 17px;
+}
+
 #divDropup .dropdown-menu {
   right: 310px !important;
   left: -250px !important;
@@ -77,8 +81,8 @@ body {
   overflow-y: scroll;
   max-height: 100vh;
   background-color: rgba(0, 0, 0, 0.9);
-
  }
+ 
  #divDropup .dropdown-menu .dropdown-item {
   padding: 0 0 0 1rem;
   margin: 0;
