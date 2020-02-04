@@ -12,26 +12,44 @@
 
 <body>
   <div class="container">
-    <div class="input-group">
-      <input type="text" class="form-control" id="input" value="0">
+    <div class="input-group d-flex flex-column">
+      <div class="p-2 expression">
+        <input type="text" class="form-control" id="expression" value="">
+      </div>
+      <div class="p-2 result">
+        <input type="text" class="form-control" id="result" value="0">
+      </div>
     </div>
     <div class="buttons">
+      <div class="dropleft" id="divDropup">
+        <button type="button" class="btn btn-secondary dropdown-toggle" id="btn-exchange" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">PLN</button>
+        <ul class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton"></ul>
+      </div>
       <button type="button" class="btn btn-secondary" id="btn-clear">C</button>
       <button type="button" class="btn btn-secondary" id="btn-clearEntry">CE</button>
-      <button type="button" class="btn btn-secondary" id="btn-opposite">+/-</button>
       <button type="button" class="btn btn-raised btn-warning btn-operator">&divide;</button>
+      <button type="button" class="btn btn-raised btn-warning btn-parenthesis" id="btn-left-parenthesis">(</button>
+
       <button type="button" class="btn btn-raised btn-secondary btn-number">7</button>
       <button type="button" class="btn btn-raised btn-secondary btn-number">8</button>
       <button type="button" class="btn btn-raised btn-secondary btn-number">9</button>
       <button type="button" class="btn btn-raised btn-warning btn-operator">&times;</button>
+      <button type="button" class="btn btn-raised btn-warning btn-parenthesis" id="btn-right-parenthesis">)</button>
+
       <button type="button" class="btn btn-raised btn-secondary btn-number">4</button>
       <button type="button" class="btn btn-raised btn-secondary btn-number">5</button>
       <button type="button" class="btn btn-raised btn-secondary btn-number">6</button>
       <button type="button" class="btn btn-raised btn-warning btn-operator">-</button>
+      <span class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="right" title="x^(y)">
+        <button type="button" class="btn btn-raised btn-warning btn-operator">^</button>
+      </span>
       <button type="button" class="btn btn-raised btn-secondary btn-number">1</button>
       <button type="button" class="btn btn-raised btn-secondary btn-number">2</button>
       <button type="button" class="btn btn-raised btn-secondary btn-number">3</button>
       <button type="button" class="btn btn-raised btn-warning btn-operator">+</button>
+      <span class="d-inline-block" tabindex="0" data-toggle="tooltip" data-placement="right" title="x&radic;(y)">
+        <button type="button" class="btn btn-raised btn-warning btn-operator">&radic;</button>
+      </span>
       <button type="button" class="btn btn-raised btn-secondary btn-number btn-0">0</button>
       <button type="button" class="btn btn-raised btn-secondary" id="btn-decimal">.</button>
       <button type="button" class="btn btn-raised btn-warning" id="btn-equals">=</button>
@@ -40,8 +58,13 @@
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
-  <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
-  <script type="text/javascript" src="index.js"></script>
+  <script>$(document).ready(function(){$('body').bootstrapMaterialDesign();});</script>
+  <script type="text/javascript" src="./src/variables.js"></script>
+  <script type="text/javascript" src="./src/helperFunctions.js"></script>
+  <script type="text/javascript" src="./src/eventHandlers.js"></script>
+  <script type="text/javascript" src="./src/eventListeners.js"></script>
+  <script type="text/javascript" src="./src/api.js"></script>
+
 </body>
 
 </html>
